@@ -75,3 +75,15 @@ while budget == 0:
         budget = int(input('Введи стартовый капитал: '))
     except ValueError:
         print('Это не число')
+
+#MODIFIERS
+rent = int(0.05 * budget)
+
+cat_a = int(0.01 * budget)
+cat_b = int(0.2 * budget)
+
+dog_a = int(0.5 * budget)
+dog_b = int(1 * budget)
+
+bird_a = int(1 * budget)
+bird_b = int(2 * budget)
