@@ -66,7 +66,6 @@ c_names = names.select('blockquote')[1].text.strip('').split()
 cat_names = []
 for name in c_names:
     cat_names.append(name[0:-1])
-
 # print(cat_names)
 
 url = 'https://www.purinaone.ru/dog/articles/new-owner-tips/klichki-dlya-sobak-malchikov'
@@ -76,7 +75,17 @@ names = soup(html.content, 'html.parser').select('table')[1].select('p')
 dog_names = []
 for name in names:
     dog_names.append(name.text.strip())
+# print(dog_names)
 
+url = 'https://petstime.ru/article/krasivye-imena-dlya-ptits-malchikov-i-devochek'
+headers = {'User-Agent': UserAgent().random}
+html = requests.get(url, headers=headers)
+names = soup(html.content, 'html.parser').select('div.entry-content.clearfix')[0].select('ul')[-9]
+bird_names = []
+for name in names:
+    if name.text != '\n':
+        bird_names.append(name.text.strip()[0:-1])
+# print(bird_names)
 
 
 ##########PREMISE
