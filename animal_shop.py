@@ -88,4 +88,3 @@ dog_b = int(1 * budget)
 bird_a = int(1 * budget)
 bird_b = int(2 * budget)
 
-'''and last'''
