@@ -69,6 +69,13 @@ for name in c_names:
 
 # print(cat_names)
 
+url = 'https://www.purinaone.ru/dog/articles/new-owner-tips/klichki-dlya-sobak-malchikov'
+headers = {'User-Agent': UserAgent().random}
+html = requests.get(url, headers=headers)
+names = soup(html.content, 'html.parser').select('table')[1].select('p')
+dog_names = []
+for name in names:
+    dog_names.append(name.text.strip())
 
 
 
