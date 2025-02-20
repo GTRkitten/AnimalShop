@@ -164,7 +164,9 @@ while True:
         elif option == 4:
             ...
 
-
+        if s.budget <= 0 and len(s.animals) == 0:
+            print('Вы разорились :(')
+            quit()
 
     except ValueError:
         print('Такой функции нет')
