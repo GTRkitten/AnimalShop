@@ -22,7 +22,6 @@ class Bird(Animal):
         return f'Чирик-чирик!'
 
 
-
 class Shop:
     def __init__(self, name:str,
                  budget:int,
@@ -51,7 +50,6 @@ class Shop:
             print(f'{animal.__class__.__name__} по имени {animal.name} в {self.name} нет')
 
 
-
 ###########GETTING NAMES
 import requests
 from fake_useragent import UserAgent
@@ -68,6 +66,8 @@ for name in c_names:
     cat_names.append(name[0:-1])
 # print(cat_names)
 
+
+
 url = 'https://www.purinaone.ru/dog/articles/new-owner-tips/klichki-dlya-sobak-malchikov'
 headers = {'User-Agent': UserAgent().random}
 html = requests.get(url, headers=headers)
@@ -76,6 +76,8 @@ dog_names = []
 for name in names:
     dog_names.append(name.text.strip())
 # print(dog_names)
+
+
 
 url = 'https://petstime.ru/article/krasivye-imena-dlya-ptits-malchikov-i-devochek'
 headers = {'User-Agent': UserAgent().random}
@@ -86,6 +88,8 @@ for name in names:
     if name.text != '\n':
         bird_names.append(name.text.strip()[0:-1])
 # print(bird_names)
+
+
 
 
 ##########PREMISE
@@ -127,3 +131,14 @@ bird_a = int(1 * budget)
 bird_b = int(2 * budget)
 
 s = Shop(name,budget,[])
+
+
+#GAME CYCLE
+while True:
+    print()
+    print(f'0. Выйти из игры\n'
+          f'1. Посмотреть бюджет\n'
+          f'2. Посмотреть список животных\n'
+          f'3. Купить животное на рынке\n'
+          f'4. Продать животное на рынке\n'
+          )
