@@ -142,3 +142,29 @@ while True:
           f'3. Купить животное на рынке\n'
           f'4. Продать животное на рынке\n'
           )
+
+    try:
+        option = int(input('Выбери, что ты хочешь сделать?: '))
+
+        if option == 0:
+            print(f'Магазин {s.name} закрывается...')
+            quit()
+
+        elif option == 1:
+            print(f'Бюджет магазина {s.name} = {s.budget}')
+
+        elif option == 2:
+            ...
+
+        # BUY
+        elif option == 3:
+            ...
+
+        # SELL
+        elif option == 4:
+            ...
+
+
+
+    except ValueError:
+        print('Такой функции нет')
