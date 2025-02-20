@@ -1,5 +1,5 @@
 class Animal:
-    def __init__(self, name, price):
+    def __init__(self, name:str, price):
         self.name = name
         self.price = price
 
@@ -49,6 +49,26 @@ class Shop:
             print(animal.sound())
         else:
             print(f'{animal.__class__.__name__} по имени {animal.name} в {self.name} нет')
+
+
+
+###########GETTING NAMES
+import requests
+from fake_useragent import UserAgent
+from bs4 import BeautifulSoup as soup
+
+
+url = 'https://zoo-perm.ru/novosti/krasivye-imena-dlya-koshek-putevoditel-po-vyboru-idealnogo-imeni-dlya-vashego-pushistogo-druga/'
+headers = {'User-Agent': UserAgent().random}
+html = requests.get(url, headers=headers)
+names = soup(html.content, 'html.parser')
+c_names = names.select('blockquote')[1].text.strip('').split()
+cat_names = []
+for name in c_names:
+    cat_names.append(name[0:-1])
+
+# print(cat_names)
+
 
 
 
