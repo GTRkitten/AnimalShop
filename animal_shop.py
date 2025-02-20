@@ -24,7 +24,9 @@ class Bird(Animal):
 
 
 class Shop:
-    def __init__(self, name, budget, animals):
+    def __init__(self, name:str,
+                 budget:int,
+                 animals:list):
         self.name = name
         self.animals = animals
         self.budget = budget
@@ -32,7 +34,7 @@ class Shop:
     def __str__(self):
         return f'Бюджет магазина {self.name}: {self.budget}'
 
-    def buy_animal(self, animal):
+    def buy_animal(self, animal:Animal):
         if self.budget >= animal.price:
             self.budget -= animal.price
             self.animals.append(animal)
@@ -88,3 +90,4 @@ dog_b = int(1 * budget)
 bird_a = int(1 * budget)
 bird_b = int(2 * budget)
 
+s = Shop(name,budget,[])
