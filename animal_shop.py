@@ -1,23 +1,49 @@
 class Animal:
-    def __init__(self, name:str, price):
+    def __init__(self, name:str, price:int, date) -> None:
         self.name = name
         self.price = price
 
-    def sound(self):
+        self.date = date
+        self.weight = 1
+        self.modifier = 0.01  # MODIFIER
+        self.rarity = self.weight * self.modifier
+
+    def value(self, date:int) -> None:
+        price = self.price
+        self.price += price * self.rarity * (date - self.date)
+
+    def sound(self) -> str:
         return f'Звук'
 
-class Dog(Animal):
-    def sound(self):
-        super().sound()
-        return f'Гав!'
 
 class Cat(Animal):
-    def sound(self):
+    def __init__(self, name, price, date) -> None:
+        super().__init__(name, price, date)
+        self.weight = 1
+        self.modifier = 0.01  # MODIFIER
+
+    def sound(self) -> str:
         super().sound()
         return f'Мяууу!'
 
+class Dog(Animal):
+    def __init__(self, name, price, date) -> None:
+        super().__init__(name, price, date)
+        self.weight = 5/3
+        self.modifier = 0.01  # MODIFIER
+
+    def sound(self) -> str:
+        super().sound()
+        return f'Гав!'
+
+
 class Bird(Animal):
-    def sound(self):
+    def __init__(self, name, price, date) -> None:
+        super().__init__(name, price, date)
+        self.weight = 5/2
+        self.modifier = 0.01 #MODIFIER
+
+    def sound(self) -> str:
         super().sound()
         return f'Чирик-чирик!'
 
@@ -25,15 +51,15 @@ class Bird(Animal):
 class Shop:
     def __init__(self, name:str,
                  budget:int,
-                 animals:list):
+                 animals:list) -> None:
         self.name = name
         self.animals = animals
         self.budget = budget
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'Бюджет магазина {self.name}: {self.budget}'
 
-    def buy_animal(self, animal:Animal):
+    def buy_animal(self, animal:Animal) -> None:
         if self.budget >= animal.price:
             self.budget -= animal.price
             self.animals.append(animal)
@@ -41,7 +67,7 @@ class Shop:
         else:
             print(f'На покупку {animal.name} у {self.name} недостаточно денюжек :(')
 
-    def sell_animal(self, animal):
+    def sell_animal(self, animal) -> None:
         if animal in self.animals:
             self.budget += animal.price
             self.animals.remove(animal)
@@ -137,12 +163,18 @@ bird_b = int(2 * budget)
 s = Shop(name,budget,[])
 
 
-#GAME CYCLE
+#TRACK SYSTEM
 day = 1
 score = 0
 
 #GAME CYCLE
 while True:
+    # HOLD MECHANIC
+    if len(s.animals) > 0:
+        for animal in s.animals:
+            animal.value(day)
+            animal.date = day
+
     if s.budget > score and s.budget > budget:
         score = s.budget - budget
 
@@ -169,10 +201,10 @@ while True:
             print(f'Ваша прибыль составляет {s.budget - budget}')
 
         elif option == 3:
-            print(f'Список животных магазина {s.name}: ')
+            print(f'Список животных магазина {s.name}: \n')
             if len(s.animals) > 0:
-                for animal in s.animals:
-                    print(animal.name, end=' ')
+                for i, animal in enumerate(s.animals):
+                    print(f'{i + 1}){animal.name} стоимостью {animal.price}')
                 print()
             else:
                 print(f'В магазине "{s.name}" пока нет животных')
@@ -181,12 +213,13 @@ while True:
         elif option == 4:
             market = []
             for i in range(randint(2, 5)):
-                market.append(choices([Cat(cat_names[randint(0, len(cat_names) - 1)], randint(cat_a, cat_b)),
-                                       Dog(dog_names[randint(0, len(dog_names) - 1)], randint(dog_a, dog_b)),
-                                       Bird(bird_names[randint(0, len(bird_names) - 1)], randint(bird_a, bird_b))],
-                                      weights=[0.5, 0.3, 0.2],  # MODIFIER
-                                      k=1)[0])
-            print(f'День: {day}. Вы заплатили за аренду магазина {rent} денег')
+                market.append(choices([
+                    Cat(cat_names[randint(0, len(cat_names) - 1)], randint(cat_a, cat_b), day),
+                    Dog(dog_names[randint(0, len(dog_names) - 1)], randint(dog_a, dog_b), day),
+                    Bird(bird_names[randint(0, len(bird_names) - 1)], randint(bird_a, bird_b), day)],
+                    weights=[0.5, 0.3, 0.2],  # MODIFIER
+                    k=1)[0])
+            print(f'День: {day}. Вы заплатите за аренду магазина {rent} денег')
             print(f'На рынке сейчас есть:\n')
             for i in range(len(market)):
                 print(f'{i + 1}. Купить "{market[i].name}" за {market[i].price}: {market[i].sound()}\n')
@@ -250,6 +283,8 @@ while True:
 
         if s.budget <= 0 and len(s.animals) == 0:
             print('Вы разорились :(')
-            quit()
+            break
     except ValueError:
         print('Такой функции нет')
+
+print(f'Вы пробыли владельцем {s.name} {day} дней и стали богаче в {score} раз!')
