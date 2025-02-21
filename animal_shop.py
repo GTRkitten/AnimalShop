@@ -56,38 +56,39 @@ from fake_useragent import UserAgent
 from bs4 import BeautifulSoup as soup
 
 
-url = 'https://zoo-perm.ru/novosti/krasivye-imena-dlya-koshek-putevoditel-po-vyboru-idealnogo-imeni-dlya-vashego-pushistogo-druga/'
-headers = {'User-Agent': UserAgent().random}
-html = requests.get(url, headers=headers)
-names = soup(html.content, 'html.parser')
-c_names = names.select('blockquote')[1].text.strip('').split()
-cat_names = []
-for name in c_names:
-    cat_names.append(name[0:-1])
+# url = 'https://zoo-perm.ru/novosti/krasivye-imena-dlya-koshek-putevoditel-po-vyboru-idealnogo-imeni-dlya-vashego-pushistogo-druga/'
+# headers = {'User-Agent': UserAgent().random}
+# html = requests.get(url, headers=headers)
+# names = soup(html.content, 'html.parser')
+# c_names = names.select('blockquote')[1].text.strip('').split()
+# cat_names = []
+# for name in c_names:
+#     cat_names.append(name[0:-1])
 # print(cat_names)
+cat_names = ['Барабашка', 'Бублик', 'Ватрушка', 'Вафля', 'Варенье', 'Винни', 'Винтик', 'Винегрет', 'Гном', 'Дыня', 'Жвачка', 'Зайка', 'Ириска', 'Капуста', 'Карамелька', 'Кефир', 'Кекс', 'Клешня', 'Козявка', 'Компот', 'Конфетка', 'Коржик', 'Котлета', 'Лимончик', 'Мафин', 'Мармеладка', 'Няшка', 'Оладушка', 'Пампушка', 'Пельмень', 'Пельмешка', 'Пышка', 'Пыжик', 'Пузырь', 'Пупсик', 'Пышечка', 'Рагу', 'Рыжик', 'Сарделька', 'Сосиска', 'Сырник', 'Творожок', 'Фрикаделька', 'Хвостик', 'Цыпленок', 'Шарик', 'Шпрот', 'Эскимо', 'Ягодка']
 
 
-
-url = 'https://www.purinaone.ru/dog/articles/new-owner-tips/klichki-dlya-sobak-malchikov'
-headers = {'User-Agent': UserAgent().random}
-html = requests.get(url, headers=headers)
-names = soup(html.content, 'html.parser').select('table')[1].select('p')
-dog_names = []
-for name in names:
-    dog_names.append(name.text.strip())
+# url = 'https://www.purinaone.ru/dog/articles/new-owner-tips/klichki-dlya-sobak-malchikov'
+# headers = {'User-Agent': UserAgent().random}
+# html = requests.get(url, headers=headers)
+# names = soup(html.content, 'html.parser').select('table')[1].select('p')
+# dog_names = []
+# for name in names:
+#     dog_names.append(name.text.strip())
 # print(dog_names)
+dog_names = ['Босс', 'Кудряш', 'Пикачу', 'Буян', 'Кукис', 'Пират', 'Воланд', 'Лексус', 'Питон', 'Гаврик', 'Лунтик', 'Пряник', 'Гуффи', 'Мамай', 'Рембо', 'Доллар', 'Мистер', 'Тайсон', 'Дракула', 'Модник', 'Царь', 'Дюшес', 'Ниндзя', 'Шнапс', 'Изюм', 'Ньютон', 'Шредер', 'Йода', 'Оливье', 'Шрек', 'Коржик', 'Оби-Ван', 'Шумахер']
 
 
-
-url = 'https://petstime.ru/article/krasivye-imena-dlya-ptits-malchikov-i-devochek'
-headers = {'User-Agent': UserAgent().random}
-html = requests.get(url, headers=headers)
-names = soup(html.content, 'html.parser').select('div.entry-content.clearfix')[0].select('ul')[-9]
-bird_names = []
-for name in names:
-    if name.text != '\n':
-        bird_names.append(name.text.strip()[0:-1])
+# url = 'https://petstime.ru/article/krasivye-imena-dlya-ptits-malchikov-i-devochek'
+# headers = {'User-Agent': UserAgent().random}
+# html = requests.get(url, headers=headers)
+# names = soup(html.content, 'html.parser').select('div.entry-content.clearfix')[0].select('ul')[-9]
+# bird_names = []
+# for name in names:
+#     if name.text != '\n':
+#         bird_names.append(name.text.strip()[0:-1])
 # print(bird_names)
+bird_names = ['Абду', 'Бибигон', 'Бисер', 'Винтик', 'Глюк', 'Жулик', 'Йорк', 'Йо-йо', 'Крекер', 'Крош', 'Лунтик', 'Лютик', 'Минипут', 'Немо', 'Пивз', 'Покемон', 'Твикс', 'Ферби', 'Флик', 'Флэш', 'Чипс', 'Щипун', 'Эвон', 'Юнга', 'Янг']
 
 
 ############IMPORTS
