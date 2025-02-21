@@ -192,7 +192,7 @@ while True:
 
         if option == 0:
             print(f'Магазин {s.name} закрывается...')
-            quit()
+            break
 
         elif option == 1:
             print(f'Бюджет магазина {s.name} = {s.budget}')
@@ -287,4 +287,5 @@ while True:
     except ValueError:
         print('Такой функции нет')
 
-print(f'Вы пробыли владельцем {s.name} {day} дней и стали богаче в {score} раз!')
+print(f'Вы пробыли владельцем {s.name} {day} дней и стали богаче на {score} монет!')
+input()
