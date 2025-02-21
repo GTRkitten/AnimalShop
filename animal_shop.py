@@ -138,13 +138,21 @@ s = Shop(name,budget,[])
 
 
 #GAME CYCLE
+day = 1
+score = 0
+
+#GAME CYCLE
 while True:
+    if s.budget > score and s.budget > budget:
+        score = s.budget - budget
+
     print()
     print(f'0. Выйти из игры\n'
           f'1. Посмотреть бюджет\n'
-          f'2. Посмотреть список животных\n'
-          f'3. Купить животное на рынке\n'
-          f'4. Продать животное на рынке\n'
+          f'2. Посмотреть прибыль относительно начального капитала\n'
+          f'3. Посмотреть список животных\n'
+          f'4. Купить животное на рынке\n'
+          f'5. Продать животное на рынке\n'
           )
 
     try:
@@ -158,6 +166,9 @@ while True:
             print(f'Бюджет магазина {s.name} = {s.budget}')
 
         elif option == 2:
+            print(f'Ваша прибыль составляет {s.budget - budget}')
+
+        elif option == 3:
             print(f'Список животных магазина {s.name}: ')
             if len(s.animals) > 0:
                 for animal in s.animals:
@@ -167,59 +178,73 @@ while True:
                 print(f'В магазине "{s.name}" пока нет животных')
 
         # BUY
-        elif option == 3:
-            market = choices([Cat(cat_names[randint(0, len(cat_names) - 1)], randint(cat_a, cat_b)),
-                              Dog(dog_names[randint(0, len(dog_names) - 1)], randint(dog_a, dog_b)),
-                              Bird(bird_names[randint(0, len(bird_names) - 1)], randint(bird_a, bird_b)), ],
-                             weights=[0.5, 0.3, 0.2],  # MODIFIER
-                             k=5)
+        elif option == 4:
+            market = []
+            for i in range(randint(2, 5)):
+                market.append(choices([Cat(cat_names[randint(0, len(cat_names) - 1)], randint(cat_a, cat_b)),
+                                       Dog(dog_names[randint(0, len(dog_names) - 1)], randint(dog_a, dog_b)),
+                                       Bird(bird_names[randint(0, len(bird_names) - 1)], randint(bird_a, bird_b))],
+                                      weights=[0.5, 0.3, 0.2],  # MODIFIER
+                                      k=1)[0])
+            print(f'День: {day}. Вы заплатили за аренду магазина {rent} денег')
             print(f'На рынке сейчас есть:\n')
             for i in range(len(market)):
-                print(f'{i + 1}. Купить "{market[i].name}" за {market[i].price}\n')
+                print(f'{i + 1}. Купить "{market[i].name}" за {market[i].price}: {market[i].sound()}\n')
             print(f'0. Пропустить день\n')
 
-            # CHOICE
-            try:  # здесь такая же шляпа
-                choice = int(input('Кого Вы хотите купить?: ')) - 1
-                if choice in range(len(market)):
-                    s.buy_animal(market[choice])
+            # SELECTION
+            try:
+                buy = int(input('Кого Вы хотите купить?: ')) - 1
+                if buy in range(len(market)):
+                    s.buy_animal(market[buy])
                     s.budget -= rent
+                    day += 1
                 else:
                     print(f'Вы пошли на рынок и вернулись ни с чем')
                     s.budget -= rent
+                    day += 1
             except ValueError:
                 print(f'На рынке такого нет!')
                 s.budget -= rent
+                day += 1
 
         # SELL
-        elif option == 4:
+        elif option == 5:
+            print(f'День: {day}. Вы заплатили за аренду магазина {rent} денег')
             if len(s.animals) > 0:
                 try:
                     sell = int(input('Выберите номер зверушки на продажу: ')) - 1
                     if sell in range(len(s.animals)):
                         r = s.animals[sell].price
+
                         if s.animals[sell].__class__.__name__ == 'Cat':
-                            s.animals[sell].price = randint(int(r / 4), int(cat_b * 2))  # MODIFIER
+                            s.animals[sell].price = randint(int(r / 4), int(r * 3))  # MODIFIER
 
                         elif s.animals[sell].__class__.__name__ == 'Dog':
-                            s.animals[sell].price = randint(int(r / 3), int(dog_b * 1.5))  # MODIFIER
+                            s.animals[sell].price = randint(int(r / 3), int(r * 2))  # MODIFIER
 
                         else:
-                            s.animals[sell].price = randint(int(r / 2), int(bird_b * 1.2))  # MODIFIER
+                            s.animals[sell].price = randint(int(r / 2), int(r * 1.5))  # MODIFIER
 
+                        print(f'Вы продали {s.animals[sell].name} за {s.animals[sell].price}')
                         s.sell_animal(s.animals[sell])
                         s.budget -= rent
-                        print(f'Вы продали зверушку под номером {sell + 1}')
+                        day += 1
+
                     else:
                         print('Вы так торопились на рынок, что не взяли с собой зверушку!')
                         s.budget -= rent
+                        day += 1
 
                 except ValueError:
                     print('Вы так торопились на рынок, что не взяли с собой зверушку!')
                     s.budget -= rent
+                    day += 1
             else:
                 print(f'Вам нечего продать на рынке. День прошел зря')
                 s.budget -= rent
+                day += 1
+
         else:
             print('Такой функции нет')
 
