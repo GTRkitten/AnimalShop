@@ -122,10 +122,11 @@ while budget == 0:
         print('Это не число')
 
 #MODIFIERS
-rent = int(0.05 * budget)
+rent = int(0.01 * budget)
+print(f'\nАренда магазина обойдется Вам в {rent}\n')
 
-cat_a = int(0.01 * budget)
-cat_b = int(0.2 * budget)
+cat_a = int(0.05 * budget)
+cat_b = int(0.25 * budget)
 
 dog_a = int(0.5 * budget)
 dog_b = int(1 * budget)
